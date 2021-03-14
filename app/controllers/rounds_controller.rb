@@ -18,7 +18,7 @@ class RoundsController < ApplicationController
     @round = Round.new(round_params)
 
     if @round.save
-      render json: @round, status: :created, location: @round
+      render json: RoundSerializer.new(@round).serializable_hash[:data][:attributes], status: :created
     else
       render json: @round.errors, status: :unprocessable_entity
     end
