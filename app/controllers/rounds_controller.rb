@@ -15,10 +15,10 @@ class RoundsController < ApplicationController
 
   # POST /rounds
   def create
-    @round = Round.new(round_params)
+    @round = current_user.rounds.build(round_params)
 
     if @round.save
-      render json: RoundSerializer.new(@round).serializable_hash[:data][:attributes], status: :created
+      render json: @round, status: :created, location: @round
     else
       render json: @round.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class RoundsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def round_params
-      params.require(:round).permit(:par, :score)
+      params.require(:round).permit(:par, :score, :course_id)
     end
 end
