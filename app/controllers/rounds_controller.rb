@@ -46,6 +46,6 @@ class RoundsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def round_params
-      params.require(:round).permit(:par, :score, :course_id)
+      params.require(:round).permit(:par, :score, :score_card, :course_id)
     end
 end
